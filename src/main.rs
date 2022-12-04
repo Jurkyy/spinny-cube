@@ -9,7 +9,7 @@ const CUBE_WIDTH: f64 = 10.;
 const SCREEN_WIDTH: usize = 160;
 const SCREEN_HEIGHT: usize = 55;
 const BACKGROUND_ASCII_CODE: char = ' ';
-const SPEED: f64 = 1.0;
+const DENSITY: f64 = 0.5;
 const DISTANCE_FROM_CAMERA: i32 = 60;
 const K1: f64 = 100.;
 
@@ -36,7 +36,7 @@ fn main() {
         c: 0.0,
     };
     io::stdout().flush().unwrap();
-    let mut total_duration = Duration::new(0, 0);
+    let mut calculation_duration = Duration::new(0, 0);
     let mut _average_duration = Duration::new(0, 0);
     let mut counter: u32 = 1;
     print!("\x1b[2J");
@@ -44,8 +44,8 @@ fn main() {
         let start = Instant::now();
         z_buffer = [0.; SCREEN_WIDTH * SCREEN_HEIGHT * 4];
         buffer = [BACKGROUND_ASCII_CODE; SCREEN_WIDTH * SCREEN_HEIGHT];
-        for cube_x in arange(-CUBE_WIDTH..CUBE_WIDTH, SPEED) {
-            for cube_y in arange(-CUBE_WIDTH..CUBE_WIDTH, SPEED) {
+        for cube_x in arange(-CUBE_WIDTH..CUBE_WIDTH, DENSITY) {
+            for cube_y in arange(-CUBE_WIDTH..CUBE_WIDTH, DENSITY) {
                 calculate_surface(
                     cube_x,
                     cube_y,
@@ -111,14 +111,14 @@ fn main() {
                 _ => print!("{}", elem),
             };
         }
-        scalars.a += 0.05;
-        scalars.b -= 0.05;
-        scalars.c += 0.01;
+        scalars.a -= 0.04;
+        scalars.b += 0.02;
+        scalars.c -= 0.04;
         println!();
-        total_duration = total_duration.checked_add(frame_time).unwrap();
-        _average_duration = total_duration.div_f64(counter as f64);
+        calculation_duration = calculation_duration.checked_add(frame_time).unwrap();
+        _average_duration = calculation_duration.div_f64(counter as f64);
         println!("Frame Number: {:?}", counter);
-        println!("Total Time: {:?}", total_duration);
+        println!("Total Time Spent Calculating: {:?}", calculation_duration);
         println!("Average Frame Time: {:?}", _average_duration);
         std::io::stdout().flush().unwrap();
         sleep(Duration::from_micros(50000));
