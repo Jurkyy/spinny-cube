@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 iter_num_tools = "0.6.2"
+enable-ansi-support = "0.1.2"

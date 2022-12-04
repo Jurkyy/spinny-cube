@@ -1,3 +1,4 @@
+use enable_ansi_support::enable_ansi_support;
 use iter_num_tools::arange;
 use std::io::{self, Write};
 use std::{
@@ -5,11 +6,11 @@ use std::{
     time::{Duration, Instant},
 };
 const CUBE_WIDTH: f64 = 10.;
-const SCREEN_WIDTH: usize = 150;
-const SCREEN_HEIGHT: usize = 40;
-const BACKGROUND_ADCII_CODE: char = ' ';
-const SPEED: f64 = 0.5;
-const DISTANCE_FROM_CAMERA: i32 = 90;
+const SCREEN_WIDTH: usize = 160;
+const SCREEN_HEIGHT: usize = 55;
+const BACKGROUND_ASCII_CODE: char = ' ';
+const SPEED: f64 = 1.0;
+const DISTANCE_FROM_CAMERA: i32 = 60;
 const K1: f64 = 100.;
 
 struct Scalars {
@@ -19,6 +20,13 @@ struct Scalars {
 }
 
 fn main() {
+    match enable_ansi_support() {
+        Ok(()) => {}
+        Err(e) => {
+            print!("ANSI support error: {}", e);
+        }
+    }
+
     let mut z_buffer: [f64; SCREEN_WIDTH * SCREEN_HEIGHT * 4];
     let mut buffer: [char; SCREEN_WIDTH * SCREEN_HEIGHT];
 
@@ -27,16 +35,15 @@ fn main() {
         b: 0.0,
         c: 0.0,
     };
-    print!("\x1b[2J");
     io::stdout().flush().unwrap();
     let mut total_duration = Duration::new(0, 0);
-    let mut average_duration = Duration::new(0, 0);
+    let mut _average_duration = Duration::new(0, 0);
     let mut counter: u32 = 1;
-
+    print!("\x1b[2J");
     loop {
         let start = Instant::now();
         z_buffer = [0.; SCREEN_WIDTH * SCREEN_HEIGHT * 4];
-        buffer = [BACKGROUND_ADCII_CODE; SCREEN_WIDTH * SCREEN_HEIGHT];
+        buffer = [BACKGROUND_ASCII_CODE; SCREEN_WIDTH * SCREEN_HEIGHT];
         for cube_x in arange(-CUBE_WIDTH..CUBE_WIDTH, SPEED) {
             for cube_y in arange(-CUBE_WIDTH..CUBE_WIDTH, SPEED) {
                 calculate_surface(
@@ -95,8 +102,9 @@ fn main() {
                 );
             }
         }
-        let frame_time = start.elapsed();
+
         print!("\x1b[H");
+        let frame_time = start.elapsed();
         for (i, elem) in buffer.iter_mut().enumerate() {
             match i % SCREEN_WIDTH {
                 0 => println!(),
@@ -108,12 +116,10 @@ fn main() {
         scalars.c += 0.01;
         println!();
         total_duration = total_duration.checked_add(frame_time).unwrap();
-        average_duration = total_duration.div_f64(counter as f64);
-        println!(
-            "\x1b[93;1mAverage Frame Time: {:?} \x1b[0m",
-            average_duration
-        );
-        println!("\x1b[93;1mFrame number: {:?} \x1b[0m", counter);
+        _average_duration = total_duration.div_f64(counter as f64);
+        println!("Frame Number: {:?}", counter);
+        println!("Total Time: {:?}", total_duration);
+        println!("Average Frame Time: {:?}", _average_duration);
         std::io::stdout().flush().unwrap();
         sleep(Duration::from_micros(50000));
         counter += 1;
