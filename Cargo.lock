@@ -54,5 +54,4 @@ name = "spinny-cube"
 version = "0.1.0"
 dependencies = [
  "iter_num_tools",
- "libm",
 ]
