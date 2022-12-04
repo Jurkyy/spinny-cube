@@ -1,0 +1,10 @@
+[package]
+name = "spinny-cube"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+iter_num_tools = "0.6.2"
+libm = "0.2.6"
