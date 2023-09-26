@@ -1,7 +1,6 @@
 use enable_ansi_support::enable_ansi_support;
 use iter_num_tools::arange;
 use std::io::{self, Write};
-use std::process;
 use std::thread::sleep;
 use std::time::{Duration, Instant};
 
@@ -31,7 +30,6 @@ fn main() {
     enable_ansi_support().unwrap_or_else(|e| {
         print!("ANSI support error: {}", e);
     });
-
     let mut scalars = Scalars {
         a: 0.0,
         b: 0.0,

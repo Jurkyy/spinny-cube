@@ -1,6 +1,8 @@
 # Spinny Cube
 Title says it all; small project to play around with Linear algebra and command-line ANSI printing in Rust.
 
+In the main.rs file, you can find my final implementation.
+
 ![](spinny_cube2.gif)
 
 ## Dependencies
