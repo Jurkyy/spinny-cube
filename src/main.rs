@@ -332,7 +332,7 @@ fn main() {
     let cube = Cube::new(10.0);
     let sphere = Sphere::new(10.0);
     let hexagon = HexagonalPrism::new(10.0, 20.0);
-    let mut twisted_torus = TwistedTorus::new(15.0, 5.0);
+    let mut twisted_torus = TwistedTorus::new(10.0, 4.0);
 
     // Create an enum to handle the different shape types
     enum ShapeType<'a> {
