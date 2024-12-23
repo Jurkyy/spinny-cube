@@ -4,10 +4,12 @@ Title says it all, just some shapes spinning; small project to play around with 
 
 In the main.rs file, you can find my final implementation.
 
-![](spinny_cube2.gif)
+![Cube](spinny_cube2.gif)
+![Sphere](Sphere.gif)
+![Twisting Taurus](TwistingTaurus.gif)
+![Hexagonal Prism](HexagonalPrism.gif)
 
 ## Dependencies
 
 - iter_num_tools ~ need this for custom step iterating over negative floating point numbers.
 - enable-ansi-support ~ used to enable ansi support.
-
