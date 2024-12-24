@@ -6,7 +6,7 @@ In the main.rs file, you can find my final implementation.
 
 ![Cube](spinny_cube2.gif)
 ![Sphere](Sphere.gif)
-![Twisting Taurus](TwistingTaurus.gif)
+![Twisting Torus](TwistingTaurus.gif)
 ![Hexagonal Prism](HexagonalPrism.gif)
 
 ## Dependencies
